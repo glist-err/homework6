@@ -42,8 +42,8 @@ int length_of_lis(int* nums, int numsSize) {
 
     return max_len;
 }
-
+/*
 int* merge(int* intervals, int intervalsSize, int* returnSize) {
     return NULL;
 }
-
+*/
