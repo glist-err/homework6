@@ -53,11 +53,9 @@ int* merge(int* intervals, int intervalsSize, int* returnSize) {
         return 0;
     }
 
-    int n = intervalsSize / 2;
-
     // Bubble sort
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
+    for (int i = 0; i < intervalsSize - 1; i++) {
+        for (int j = 0; j < intervalsSize - i - 1; j++) {
             if (intervals[j * 2] > intervals[(j + 1) * 2]) {
                 int t1 = intervals[j * 2];
                 int t2 = intervals[j * 2 + 1];
@@ -69,15 +67,15 @@ int* merge(int* intervals, int intervalsSize, int* returnSize) {
         }
     }
 
-    int* result = malloc(intervalsSize * sizeof(int));
+    int* result = malloc(intervalsSize * 2 * sizeof(int));
     int count = 0;
 
     int start = intervals[0];
     int end = intervals[1];
 
-    for (int i = 2; i < intervalsSize; i += 2) {
-        int s = intervals[i];
-        int e = intervals[i + 1];
+    for (int i = 1; i < intervalsSize; i++) {
+        int s = intervals[i * 2];
+        int e = intervals[i * 2 + 1];
 
         if (s <= end) {
             if (e > end)
@@ -95,6 +93,6 @@ int* merge(int* intervals, int intervalsSize, int* returnSize) {
     result[count * 2 + 1] = end;
     count++;
 
-    *returnSize = count; // кол-во интервалов
+    *returnSize = count;    // кол-во интервалов
     return result;
 }
