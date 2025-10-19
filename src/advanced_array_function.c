@@ -50,7 +50,7 @@ int length_of_lis(int* nums, int numsSize) {
 int* merge(int* intervals, int intervalsSize, int* returnSize) {
     if (intervalsSize == 0) {
         *returnSize = 0;
-        return NULL;
+        return 0;
     }
 
     int n = intervalsSize / 2;
@@ -58,44 +58,43 @@ int* merge(int* intervals, int intervalsSize, int* returnSize) {
     // Bubble sort
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
-            int a1 = intervals[j * 2];
-            int a2 = intervals[j * 2 + 1];
-            int b1 = intervals[(j + 1) * 2];
-            int b2 = intervals[(j + 1) * 2 + 1];
-            if (a1 > b1) {
-                intervals[j * 2] = b1;
-                intervals[j * 2 + 1] = b2;
-                intervals[(j + 1) * 2] = a1;
-                intervals[(j + 1) * 2 + 1] = a2;
+            if (intervals[j * 2] > intervals[(j + 1) * 2]) {
+                int t1 = intervals[j * 2];
+                int t2 = intervals[j * 2 + 1];
+                intervals[j * 2] = intervals[(j + 1) * 2];
+                intervals[j * 2 + 1] = intervals[(j + 1) * 2 + 1];
+                intervals[(j + 1) * 2] = t1;
+                intervals[(j + 1) * 2 + 1] = t2;
             }
         }
     }
 
     int* result = malloc(intervalsSize * sizeof(int));
-    int resIndex = 0;
+    int count = 0;
 
     int start = intervals[0];
     int end = intervals[1];
 
     for (int i = 2; i < intervalsSize; i += 2) {
-        int nextStart = intervals[i];
-        int nextEnd = intervals[i + 1];
+        int s = intervals[i];
+        int e = intervals[i + 1];
 
-        if (nextStart <= end) {
-            if (nextEnd > end)
-                end = nextEnd;
+        if (s <= end) {
+            if (e > end)
+                end = e;
         } else {
-            result[resIndex++] = start;
-            result[resIndex++] = end;
-            start = nextStart;
-            end = nextEnd;
+            result[count * 2] = start;
+            result[count * 2 + 1] = end;
+            count++;
+            start = s;
+            end = e;
         }
     }
 
-    // Добавляем последний интервал
-    result[resIndex++] = start;
-    result[resIndex++] = end;
+    result[count * 2] = start;
+    result[count * 2 + 1] = end;
+    count++;
 
-    *returnSize = resIndex; // количество элементов
+    *returnSize = count; // кол-во интервалов
     return result;
 }
