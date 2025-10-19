@@ -2,6 +2,7 @@
 #define ADVANCED_ARRAY_FUNCTION_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int max_subarray_sum(int* nums, int size);
 int length_of_lis(int* nums, int numsSize);
