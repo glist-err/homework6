@@ -24,6 +24,10 @@ int max_subarray_sum(int* nums, int size) {
 }
 
 int length_of_lis(int* nums, int numsSize) {
+    if (numsSize == 0) {
+        return 0;
+    }
+
     int max_len = 1;
     int cur_len = 1;
 
