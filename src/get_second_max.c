@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     int array[10] = {1, 2, 3, 4, 15, 15, 6, 7, 9, 10};
     int size = sizeof(array)/sizeof(int);
 
-    printf("Second max = %d", get_second_max(array, size));
+    printf("Second max = %d\n", get_second_max(array, size));
 
     return 0;
 }
